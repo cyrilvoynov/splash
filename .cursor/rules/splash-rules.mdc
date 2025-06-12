@@ -1,0 +1,86 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 🚽 Splash! — Cursor Development Prompt
+
+You are **Cursor**, an AI-powered full-stack assistant. Your goal is to generate production-ready React Native + Node.js code for **Splash!**, a mobile-first bowel-movement tracker with a playful, Liquid-Glass iOS aesthetic and Android/Web fallback. Follow the feature list, component map, animation map, notification logic, and tech stack below. Write clean, well-documented TypeScript code, split into small logical commits.  
+
+## 1. Project Overview  
+- **Name:** Splash!  
+- **Platforms:**  
+  - Primary: iOS (React Native + Expo + Native Modules for Dynamic Island)  
+  - Secondary: Android via Expo  
+  - Optional: Web via react-native-web  
+- **Purpose:** Track “Start Splash!” → timer → “End Splash!” → splash animation → log form → history + analytics → personalized reminders  
+## 2. Core Features  
+1. **Home / Session**  
+   - “Start Splash!” button → moves into Dynamic Island (or header) → timer  
+   - “End Splash!” → Skia + Lottie splash animation → redirect to form  
+2. **Poop Input Form**  
+   - ColorPicker, SizeSlider, ShapeSelector (1–7), Notes field → “Save”  
+3. **History Screen**  
+   - Scrollable list of entries (timestamp, icon, quick stats) → tap → Analytics screen  
+4. **Analytics Screen**  
+   - Charts (intervals, frequency, duration), recommendations, disclaimer  
+5. **Reminders**  
+   - Smart push/local notifications (expo-notifications / OneSignal) based on user’s avgCycle  
+6. **Settings**  
+   - Toggle reminders, frequency presets, dark mode, data export  
+
+## 3. Tech Stack & Libraries  
+- **Frontend (RN):** React Native + TypeScript, Expo, React Navigation  
+- **UI & Animations:**  
+  - Atomic components (Button, Card, Typography)  
+  - `@shopify/react-native-skia` for custom effects (splash, particles)  
+  - `react-native-reanimated` v3 for UI transitions  
+  - `lottie-react-native` for vector decor animations  
+  - Dynamic Island via custom Native Module (iOS 17+)  
+- **Backend:** Node.js + TypeScript, Express.js, Prisma ORM, PostgreSQL (Supabase/Neon)  
+- **Notifications:** `expo­-notifications` + `expo­-task­-manager` or OneSignal  
+- **CI/CD & Hosting:** Expo EAS, Vercel/Railway for API  
+
+## 4. Component Map & Folder Structure  
+/src
+/components      # Atomic + composite React components
+/screens         # Home, PoopForm, History, Analytics, Settings
+/hooks           # usePoopSession, useReminderEngine, useAnalytics
+/context         # PoopContext (global state)
+/navigation      # React Navigation stacks & tabs
+/services        # API clients, notification scheduler
+/animations      # Lottie JSON & Skia helpers
+/theme           # design tokens, colors, typography
+/App.tsx           # App entry & providers
+
+## 5. Coding & Style Rules  
+- **Language:** TypeScript everywhere  
+- **Linting & Formatting:** ESLint (Airbnb config), Prettier  
+- **Naming Conventions:**  
+  - Components: `PascalCase` (e.g. `StartSplashButton`)  
+  - Hooks: `useCamelCase` (e.g. `usePoopSession`)  
+  - Files: match component name (`StartSplashButton.tsx`)  
+- **State Management:** Context + hooks; avoid Redux unless justified  
+- **APIs:** Use Axios or Fetch; wrap in `services/api.ts`  
+- **Animations:**  
+  - UI transitions → Reanimated animations in hooks  
+  - Splash effects → Skia canvas components  
+  - Decorative loops → LottieViews with controlled `autoPlay/loop=false`  
+- **Accessibility:** All buttons must have `accessibilityLabel`; support Dynamic Type  
+- **Testing:**  
+  - Unit: Jest + React Native Testing Library  
+  - E2E: Detox (basic smoke flows)  
+
+## 6. Commit & PR Guidelines  
+- **Commits:** small, focused, with clear messages (“feat: add StartSplashButton component”)  
+- **Branches:** feature/<ticket-id>-short-description  
+- **PRs:** include screenshots / video of UI & animations; list tests added  
+
+## 7. Best Practices & Performance  
+- Avoid heavy JS loops on render; offload to Skia worklets  
+- Use `memo` and `useCallback` to prevent unnecessary re-renders  
+- Bundle splitting: keep Lottie JSON out of main bundle, lazy load  
+- Respect `prefers-reduced-motion`  
+
+---
+# 🚀 Let’s build Splash!
